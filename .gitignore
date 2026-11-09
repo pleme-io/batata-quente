@@ -1,0 +1,8 @@
+/target
+**/*.rs.bk
+/result
+/result-*
+# Delta-only spec doctrine: commit Cargo.gen.lock (the slim delta the substrate
+# lockfile-builder consumes); Cargo.build-spec.json is the gitignored full-spec
+# intermediate `gen build` also emits. Regenerate both via `gen build .`.
+Cargo.build-spec.json

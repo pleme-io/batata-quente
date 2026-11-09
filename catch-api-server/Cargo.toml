@@ -1,0 +1,42 @@
+[package]
+name = "catch-api-server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "catch API server — the Arc<GameService> core projected by the THREE faces (REST/axum + code-first OpenAPI/Swagger via utoipa, GraphQL/async-graphql, gRPC/tonic), plus /health/{startup,live,ready} + /metrics. URDUME public-service mandate."
+
+[[bin]]
+name = "catch-api-server"
+path = "src/main.rs"
+
+[dependencies]
+catch-core = { path = "../catch-core", version = "0.1.0" }
+catch-entities = { path = "../catch-entities", version = "0.1.0" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+# Face 1 — REST + code-first OpenAPI/Swagger
+axum = { workspace = true }
+utoipa = { workspace = true }
+utoipa-axum = { workspace = true }
+utoipa-swagger-ui = { workspace = true }
+# Face 2 — GraphQL
+async-graphql = { workspace = true }
+async-graphql-axum = { workspace = true }
+# Face 3 — gRPC
+tonic = { workspace = true }
+prost = { workspace = true }
+
+[build-dependencies]
+tonic-build = { workspace = true }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
+
+[lints]
+workspace = true

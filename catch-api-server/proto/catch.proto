@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+// catch gRPC face — a projection of the same Arc<GameService> core the REST
+// and GraphQL faces serve (URDUME: three transports = projections of one core).
+package catch.v1;
+
+message PrRef {
+  string workspace = 1;
+  string repo = 2;
+  uint64 number = 3;
+}
+
+message Potato {
+  PrRef pr = 1;
+  string state = 2;   // FuseState, snake_case
+  string holder = 3;
+  double fuse_pct = 4;
+}
+
+message GetBoardRequest {
+  string workspace = 1; // optional filter; empty = all
+}
+message GetBoardResponse {
+  repeated Potato potatoes = 1;
+}
+
+message ReadyForReviewRequest {
+  PrRef pr = 1;
+  string holder = 2;
+}
+message CatchRequest {
+  PrRef pr = 1;
+  string by = 2;
+}
+message MutationAck {
+  bool accepted = 1;
+}
+
+service BoardService {
+  rpc GetBoard(GetBoardRequest) returns (GetBoardResponse);
+  rpc ReadyForReview(ReadyForReviewRequest) returns (MutationAck);
+  rpc Catch(CatchRequest) returns (MutationAck);
+}

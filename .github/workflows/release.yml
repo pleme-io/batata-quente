@@ -1,0 +1,38 @@
+# catch CI/CD — the ESTEIRA private rio lane (theory/ESTEIRA.md).
+#
+# catch's conveyance runs on the rio self-hosted runner ([self-hosted, rio]),
+# NEVER a billable GitHub-hosted job (the esteira $0-budget safety theorem).
+# The image push authenticates with the job's own token (packages: write). On merge to main it builds + pushes the AUTOBUMP
+# exact-pin image `ghcr.io/pleme-io/catch:amd64-r<run>-<sha>` via the nix
+# closure (skopeo, no docker), and the rio Flux ImagePolicy/ImageUpdateAutomation
+# picks the highest run number + writes the marker (reference_autobump_standard).
+#
+# This is the Phase-1 HAND-AUTHORED rio-lane YAML; Phase-2's `caixa-esteira`
+# renderer (ESTEIRA-PLAN.md) will differential-test against it, then this file
+# becomes a 3-line `uses:` shim. No `using: docker` container actions (ESTEIRA-PLAN
+# blocker #2 — a docker-less self-hosted runner can't invoke them).
+#
+# GO-LIVE GATE (ESTEIRA-PLAN blocker #3): needs the rio self-hosted runner
+# registered + catch in its runner group + Actions enabled via the
+# pangea-github catalog (never `gh repo edit`/API — it reverts on reconcile).
+name: release
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  release:
+    runs-on: [self-hosted, rio]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: release — esteira rio lane (nix run .#release → ghcr exact-pin)
+        env:
+          GHCR_USER: ${{ github.actor }}
+          GHCR_TOKEN: ${{ github.token }}
+        run: |
+          tag="amd64-r${{ github.run_number }}-$(printf '%s' '${{ github.sha }}' | cut -c1-7)"
+          nix run .#release -- "$tag"

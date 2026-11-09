@@ -1,0 +1,16 @@
+[package]
+name = "catch-entities"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "catch L0 core — the SeaORM DeriveEntityModel entities (workspace / potato / outcome_chain). The single typed source from which data-access, the shinka migration schema, and the serve DTOs derive (URDUME L0 'SeaORM-derives-N'). Schema is add-only forever."
+
+[dependencies]
+sea-orm = { workspace = true }
+serde = { workspace = true }
+chrono = { workspace = true }
+
+[lints]
+workspace = true

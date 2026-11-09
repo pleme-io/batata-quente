@@ -1,0 +1,17 @@
+[package]
+name = "catch-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "catch game core — the FuseState FSM, the SLA derive_ladder, and the positive-only OutcomeChain event ontology (SPEC.md pillars 1 & 2). Pure, dependency-light, fully unit-tested."
+
+[dependencies]
+serde = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
+
+[lints]
+workspace = true

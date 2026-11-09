@@ -1,0 +1,51 @@
+[workspace]
+resolver = "2"
+members = [
+  "catch-core",        # pure game logic: FuseState FSM + derive_ladder + the OutcomeChain event ontology (SPEC pillars 1 & 2)
+  "catch-entities",    # the SeaORM L0 core — DeriveEntityModel entities (the data structures everything derives from)
+  "catch-api-server",  # the Arc<GameService> core + the THREE faces (REST+OpenAPI/Swagger, GraphQL, gRPC) — URDUME public-service mandate
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["pleme-io"]
+repository = "https://github.com/pleme-io/batata-quente"
+
+[workspace.lints.clippy]
+pedantic = "warn"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "z"
+strip = true
+
+# Latest-stable canonical crates (URDUME public-service mandate: "latest versions").
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1.42", features = ["macros", "rt-multi-thread", "sync"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+# Face 1 — REST (axum) + code-first OpenAPI/Swagger (utoipa). axum 0.8 line.
+axum = "0.8"
+utoipa = { version = "5", features = ["axum_extras"] }
+utoipa-axum = "0.2"
+# `vendored` embeds the swagger-ui v5.17.14 zip at build time
+# (utoipa_swagger_ui_vendored::SWAGGER_UI_VENDORED) — mandatory for hermetic
+# nix builds: the default build.rs path shells out to `curl` to download
+# swagger-ui, which the build sandbox forbids. URDUME standard — every
+# pleme-io service serving Swagger enables `vendored`.
+utoipa-swagger-ui = { version = "9", features = ["axum", "vendored"] }
+# Face 2 — GraphQL (async-graphql) over the same core.
+async-graphql = "7"
+async-graphql-axum = "7"
+# Face 3 — gRPC (tonic).
+tonic = "0.13"
+prost = "0.13"
+tonic-build = "0.13"
+# L0 core — SeaORM (the entities that derive data-access / migration / DTOs).
+sea-orm = { version = "1.1", features = ["runtime-tokio-rustls", "sqlx-postgres", "macros", "with-chrono"] }
+chrono = { version = "0.4", features = ["serde"] }

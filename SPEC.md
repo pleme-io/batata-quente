@@ -213,7 +213,7 @@ The engine's correctness is a Viggy `(defpromessa)` (DESIGN.md §8 L9):
 ```
 
 `derive_ladder`'s output and the promessa's `EscalationLadder` are the **same
-type** (`CONTINUOUS-SOLUTION-MACHINE.md`'s `EscalationLadder { steps: Vec<EscalationStep> }`) —
+type** (the promessa's `EscalationLadder { steps: Vec<EscalationStep> }`) —
 the in-game per-PR escalation and the ops-level SLA escalation are one primitive.
 
 ---

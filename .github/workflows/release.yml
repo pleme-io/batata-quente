@@ -8,9 +8,8 @@
 # picks the highest run number + writes the marker (reference_autobump_standard).
 #
 # This is the Phase-1 HAND-AUTHORED rio-lane YAML; Phase-2's `caixa-esteira`
-# renderer (ESTEIRA-PLAN.md) will differential-test against it, then this file
-# becomes a 3-line `uses:` shim. No `using: docker` container actions (ESTEIRA-PLAN
-# blocker #2 — a docker-less self-hosted runner can't invoke them).
+# renderer will differential-test against it, then this file
+# becomes a 3-line `uses:` shim. No `using: docker` container actions (a docker-less self-hosted runner can't invoke them).
 #
 # GO-LIVE GATE (ESTEIRA-PLAN blocker #3): needs the rio self-hosted runner
 # registered + catch in its runner group + Actions enabled via the

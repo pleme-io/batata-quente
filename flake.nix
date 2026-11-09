@@ -7,7 +7,7 @@
 # Dockerfile). Mirrors breathe. After any Cargo.lock change: `gen build .`
 # (re-emits Cargo.gen.lock committed + Cargo.build-spec.json gitignored).
 #
-# CI/CD: the ESTEIRA private rio lane (theory/ESTEIRA.md) — catch is a private
+# CI/CD: the ESTEIRA private rio lane — catch is a private
 # repo, so its conveyance runs on [self-hosted, rio] and `nix run .#release`
 # pushes to ghcr.io/pleme-io/catch via the nix closure (skopeo, no docker),
 # the pitr-tools reference. `.#release <tag>` is the rio-lane release app.

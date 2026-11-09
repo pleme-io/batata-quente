@@ -47,8 +47,8 @@ latest versions). Crate map:
 - **Build:** the ONE gen pattern — `flake.nix` `lockfileBuilder.mkProject` over a
   committed `Cargo.gen.lock` + a dockerTools image (Pillar 8). `nix run .#release`
   is the esteira rio-lane push.
-- **CI/CD:** `.github/workflows/release.yml` — the **esteira private rio lane**
-  ([`theory/ESTEIRA.md`](../theory/ESTEIRA.md)): `[self-hosted, rio]`, AUTOBUMP
+- **CI/CD:** `.github/workflows/release.yml` — the **esteira private rio lane**:
+  `[self-hosted, rio]`, AUTOBUMP
   exact-pin `amd64-r<run>-<sha>`, no container actions. Go-live gate: the rio
   runner must be registered + catch in its group + Actions enabled via the
   pangea-github catalog (ESTEIRA-PLAN blocker #3).

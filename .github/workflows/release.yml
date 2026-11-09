@@ -1,4 +1,4 @@
-# catch CI/CD — the ESTEIRA private rio lane (theory/ESTEIRA.md).
+# catch CI/CD — the ESTEIRA private rio lane.
 #
 # catch's conveyance runs on the rio self-hosted runner ([self-hosted, rio]),
 # NEVER a billable GitHub-hosted job (the esteira $0-budget safety theorem).
